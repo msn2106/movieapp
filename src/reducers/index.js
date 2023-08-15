@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ADD_MOVIES, ADD_FAVOURITES, REMOVE_FAVOURITES, SET_SHOW_FAVOURITE } from "../actions";
+import { ADD_FAVOURITES, ADD_MOVIES, ADD_MOVIE_TO_LIST, ADD_SEARCH_RESULT, REMOVE_FAVOURITES, SET_SHOW_FAVOURITE } from "../actions";
 
 const initialMoviesState = {
   list: [],
@@ -29,6 +29,11 @@ export function moviesReducer(state = initialMoviesState, action) {
         ...state,
         showFavorites: action.value,
       };
+    case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        list: [action.movie, ...state.list],
+      };
     default:
       return state;
   }
@@ -36,9 +41,24 @@ export function moviesReducer(state = initialMoviesState, action) {
 
 const initialSearchState = {
   result: {},
+  showSearchResults: false,
 };
 export function searchReducer(state = initialSearchState, action) {
-  return state;
+  switch (action.type) {
+    case ADD_SEARCH_RESULT:
+      return {
+        ...state,
+        result: action.movie,
+        showSearchResults: true,
+      };
+    case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        showSearchResults: false,
+      };
+    default:
+      return state;
+  }
 }
 
 // const initialRootState = {
@@ -55,4 +75,4 @@ export function searchReducer(state = initialSearchState, action) {
 export default combineReducers({
   movies: moviesReducer,
   search: searchReducer,
-})
+});
