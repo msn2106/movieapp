@@ -1,4 +1,5 @@
-import React, { createContext } from "react";
+import React from "react";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
@@ -49,15 +50,18 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 // })
 // console.log('STATE', store.getState());
 
-export const StoreContext = createContext();
-console.log("StoreContext:", StoreContext);
 
-class Provider extends React.Component {
-  render() {
-    const { store } = this.props;
-    return <StoreContext.Provider value={store}>{this.props.children}</StoreContext.Provider>;
-  }
-}
+// we are using Provider from react-redux for this
+// export const StoreContext = createContext();
+// console.log("StoreContext:", StoreContext);
+
+// we are using Provider from react-redux for this
+// class Provider extends React.Component {
+//   render() {
+//     const { store } = this.props;
+//     return <StoreContext.Provider value={store}>{this.props.children}</StoreContext.Provider>;
+//   }
+// }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -67,3 +71,40 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+// we are using Provider from react-redux for this
+// export function connect (callback) {
+//   return function (Component) {
+//     class ConnectedComponent extends React.Component {
+//       constructor (props) {
+//         super(props);
+//         this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
+//       }
+
+//       componentWillUnmount() {
+//         this.unsubscribe();
+//       }
+
+//       render() {
+//         const {store} = this.props;
+//         const state = store.getState();
+//         const dataToBePassedAsProps = callback(state);
+//         return (
+//           <Component {...dataToBePassedAsProps} dispatch={store.dispatch}/>
+//         );
+//       }
+//     }
+
+//     class ConnectedComponentWrapper extends React.Component {
+//       render () {
+//         return(
+//           <StoreContext.Consumer>
+//             {(store)=> <ConnectedComponent store={store}/>}
+//           </StoreContext.Consumer>
+//         )
+//       }
+//     }
+
+//     return ConnectedComponentWrapper;
+//   }
+// }
