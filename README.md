@@ -1,5 +1,12 @@
 # React Movie App
 
+## Result Output
+![image](https://github.com/msn2106/movieapp/assets/56197385/8febb7e9-963b-43a8-a9e4-bf85861b301f)
+
+## Features
+1. Searching for a movie and adding it to a movie list or favourite list
+2. Adding a movie to the movie list into the favourite list.
+   
 ### Things Learned
 1. Redux
 2. Actions
